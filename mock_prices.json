@@ -1,0 +1,74 @@
+{
+    "Rice": {
+        "current_price": 2500,
+        "trend": "increasing",
+        "markets": ["Delhi", "Mumbai", "Kolkata", "Chennai"],
+        "unit": "quintal"
+    },
+    "Wheat": {
+        "current_price": 2200,
+        "trend": "stable",
+        "markets": ["Delhi", "Punjab", "Haryana", "UP"],
+        "unit": "quintal"
+    },
+    "Maize": {
+        "current_price": 1800,
+        "trend": "increasing",
+        "markets": ["Karnataka", "Andhra Pradesh", "Maharashtra"],
+        "unit": "quintal"
+    },
+    "Sugarcane": {
+        "current_price": 3200,
+        "trend": "stable",
+        "markets": ["UP", "Maharashtra", "Karnataka", "Tamil Nadu"],
+        "unit": "quintal"
+    },
+    "Cotton": {
+        "current_price": 6500,
+        "trend": "decreasing",
+        "markets": ["Gujarat", "Maharashtra", "Punjab", "Haryana"],
+        "unit": "quintal"
+    },
+    "Soybean": {
+        "current_price": 4200,
+        "trend": "increasing",
+        "markets": ["Madhya Pradesh", "Maharashtra", "Rajasthan"],
+        "unit": "quintal"
+    },
+    "Groundnut": {
+        "current_price": 5500,
+        "trend": "stable",
+        "markets": ["Gujarat", "Rajasthan", "Tamil Nadu"],
+        "unit": "quintal"
+    },
+    "Potato": {
+        "current_price": 1200,
+        "trend": "increasing",
+        "markets": ["UP", "West Bengal", "Punjab", "Bihar"],
+        "unit": "quintal"
+    },
+    "Onion": {
+        "current_price": 1800,
+        "trend": "decreasing",
+        "markets": ["Maharashtra", "Karnataka", "Gujarat"],
+        "unit": "quintal"
+    },
+    "Tomato": {
+        "current_price": 2500,
+        "trend": "increasing",
+        "markets": ["Karnataka", "Andhra Pradesh", "Maharashtra"],
+        "unit": "quintal"
+    },
+    "Turmeric": {
+        "current_price": 8500,
+        "trend": "stable",
+        "markets": ["Tamil Nadu", "Andhra Pradesh", "Maharashtra"],
+        "unit": "quintal"
+    },
+    "Red Chilli": {
+        "current_price": 15000,
+        "trend": "increasing",
+        "markets": ["Andhra Pradesh", "Karnataka", "Telangana"],
+        "unit": "quintal"
+    }
+}

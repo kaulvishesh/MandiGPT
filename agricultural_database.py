@@ -1,3 +1,4 @@
+import json
 from typing import Dict, List, Tuple
 from models import Season, SoilType
 from config import Config
@@ -5,155 +6,27 @@ from config import Config
 class IndianAgriculturalDatabase:
     """Database containing Indian agricultural knowledge and crop data"""
     
-    def __init__(self):
-        self.crop_data = self._initialize_crop_database()
+    def __init__(self, crop_data_path="crop_data.json"):
+        self.crop_data = self._initialize_crop_database(crop_data_path)
         self.regional_data = self._initialize_regional_data()
         self.seasonal_data = self._initialize_seasonal_data()
     
-    def _initialize_crop_database(self) -> Dict:
-        """Initialize comprehensive crop database for Indian agriculture"""
-        return {
-            "Rice": {
-                "seasons": [Season.KHARIF, Season.RABI],
-                "soil_types": [SoilType.ALLUVIAL, SoilType.BLACK],
-                "temperature_range": (20, 35),
-                "rainfall_requirement": (1000, 2000),
-                "humidity_requirement": (70, 90),
-                "yield_per_hectare": 3.5,
-                "water_requirement": "High",
-                "fertilizer_requirement": "High",
-                "pest_risk": "Medium",
-                "market_demand": "High",
-                "profit_margin": 0.25,
-                "states": ["West Bengal", "Punjab", "Uttar Pradesh", "Andhra Pradesh", "Tamil Nadu"]
-            },
-            "Wheat": {
-                "seasons": [Season.RABI],
-                "soil_types": [SoilType.ALLUVIAL, SoilType.BLACK],
-                "temperature_range": (15, 25),
-                "rainfall_requirement": (500, 800),
-                "humidity_requirement": (50, 70),
-                "yield_per_hectare": 3.0,
-                "water_requirement": "Medium",
-                "fertilizer_requirement": "Medium",
-                "pest_risk": "Low",
-                "market_demand": "High",
-                "profit_margin": 0.20,
-                "states": ["Punjab", "Haryana", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan"]
-            },
-            "Maize": {
-                "seasons": [Season.KHARIF, Season.RABI],
-                "soil_types": [SoilType.ALLUVIAL, SoilType.RED, SoilType.BLACK],
-                "temperature_range": (18, 30),
-                "rainfall_requirement": (600, 1000),
-                "humidity_requirement": (60, 80),
-                "yield_per_hectare": 4.0,
-                "water_requirement": "Medium",
-                "fertilizer_requirement": "Medium",
-                "pest_risk": "Medium",
-                "market_demand": "Medium",
-                "profit_margin": 0.22,
-                "states": ["Karnataka", "Andhra Pradesh", "Maharashtra", "Bihar", "Uttar Pradesh"]
-            },
-            "Sugarcane": {
-                "seasons": [Season.KHARIF],
-                "soil_types": [SoilType.ALLUVIAL, SoilType.BLACK],
-                "temperature_range": (25, 35),
-                "rainfall_requirement": (1000, 1500),
-                "humidity_requirement": (70, 85),
-                "yield_per_hectare": 80.0,
-                "water_requirement": "High",
-                "fertilizer_requirement": "High",
-                "pest_risk": "High",
-                "market_demand": "High",
-                "profit_margin": 0.30,
-                "states": ["Uttar Pradesh", "Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat"]
-            },
-            "Cotton": {
-                "seasons": [Season.KHARIF],
-                "soil_types": [SoilType.BLACK, SoilType.RED],
-                "temperature_range": (20, 35),
-                "rainfall_requirement": (500, 1000),
-                "humidity_requirement": (60, 80),
-                "yield_per_hectare": 2.5,
-                "water_requirement": "Medium",
-                "fertilizer_requirement": "High",
-                "pest_risk": "High",
-                "market_demand": "Medium",
-                "profit_margin": 0.35,
-                "states": ["Gujarat", "Maharashtra", "Punjab", "Haryana", "Rajasthan"]
-            },
-            "Soybean": {
-                "seasons": [Season.KHARIF],
-                "soil_types": [SoilType.BLACK, SoilType.RED],
-                "temperature_range": (20, 30),
-                "rainfall_requirement": (600, 1000),
-                "humidity_requirement": (60, 80),
-                "yield_per_hectare": 2.0,
-                "water_requirement": "Medium",
-                "fertilizer_requirement": "Medium",
-                "pest_risk": "Medium",
-                "market_demand": "High",
-                "profit_margin": 0.28,
-                "states": ["Madhya Pradesh", "Maharashtra", "Rajasthan", "Karnataka"]
-            },
-            "Groundnut": {
-                "seasons": [Season.KHARIF, Season.RABI],
-                "soil_types": [SoilType.RED, SoilType.LATERITE],
-                "temperature_range": (20, 30),
-                "rainfall_requirement": (500, 800),
-                "humidity_requirement": (50, 70),
-                "yield_per_hectare": 1.5,
-                "water_requirement": "Low",
-                "fertilizer_requirement": "Low",
-                "pest_risk": "Low",
-                "market_demand": "Medium",
-                "profit_margin": 0.32,
-                "states": ["Gujarat", "Rajasthan", "Tamil Nadu", "Andhra Pradesh", "Karnataka"]
-            },
-            "Potato": {
-                "seasons": [Season.RABI, Season.ZAID],
-                "soil_types": [SoilType.ALLUVIAL, SoilType.RED],
-                "temperature_range": (15, 25),
-                "rainfall_requirement": (300, 500),
-                "humidity_requirement": (60, 80),
-                "yield_per_hectare": 25.0,
-                "water_requirement": "Medium",
-                "fertilizer_requirement": "High",
-                "pest_risk": "High",
-                "market_demand": "High",
-                "profit_margin": 0.40,
-                "states": ["Uttar Pradesh", "West Bengal", "Punjab", "Bihar", "Gujarat"]
-            },
-            "Onion": {
-                "seasons": [Season.RABI, Season.KHARIF],
-                "soil_types": [SoilType.ALLUVIAL, SoilType.RED],
-                "temperature_range": (15, 30),
-                "rainfall_requirement": (300, 600),
-                "humidity_requirement": (50, 70),
-                "yield_per_hectare": 20.0,
-                "water_requirement": "Medium",
-                "fertilizer_requirement": "Medium",
-                "pest_risk": "Medium",
-                "market_demand": "High",
-                "profit_margin": 0.45,
-                "states": ["Maharashtra", "Karnataka", "Gujarat", "Madhya Pradesh", "Rajasthan"]
-            },
-            "Tomato": {
-                "seasons": [Season.KHARIF, Season.RABI, Season.ZAID],
-                "soil_types": [SoilType.ALLUVIAL, SoilType.RED],
-                "temperature_range": (18, 28),
-                "rainfall_requirement": (400, 800),
-                "humidity_requirement": (60, 80),
-                "yield_per_hectare": 30.0,
-                "water_requirement": "Medium",
-                "fertilizer_requirement": "High",
-                "pest_risk": "High",
-                "market_demand": "High",
-                "profit_margin": 0.50,
-                "states": ["Karnataka", "Andhra Pradesh", "Maharashtra", "Gujarat", "Tamil Nadu"]
-            }
-        }
+    def _initialize_crop_database(self, crop_data_path: str) -> Dict:
+        """Initialize comprehensive crop database from a JSON file"""
+        try:
+            with open(crop_data_path, 'r') as f:
+                data = json.load(f)
+
+            # Convert string representations of enums to actual enum members
+            for crop, details in data.items():
+                if "seasons" in details:
+                    details["seasons"] = [Season[season] for season in details["seasons"]]
+                if "soil_types" in details:
+                    details["soil_types"] = [SoilType[soil_type] for soil_type in details["soil_types"]]
+            return data
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Error loading crop data: {e}")
+            return {}
     
     def _initialize_regional_data(self) -> Dict:
         """Initialize regional agricultural data for Indian states"""

@@ -1,0 +1,27 @@
+{
+    "Onion": {
+        "proxy_commodity": "Mr. Onion",
+        "ticker": "2740",
+        "exchange": "Taipei Exchange"
+    },
+    "Potato": {
+        "proxy_commodity": "Invesco DB Agriculture Fund",
+        "ticker": "DBA",
+        "exchange": "NYSE Arca"
+    },
+    "Tomato": {
+        "proxy_commodity": "Invesco DB Agriculture Fund",
+        "ticker": "DBA",
+        "exchange": "NYSE Arca"
+    },
+    "Turmeric": {
+        "proxy_commodity": "S&P GSCI Softs Index",
+        "ticker": "SGSICP",
+        "exchange": "Bloomberg"
+    },
+    "Red Chilli": {
+        "proxy_commodity": "S&P GSCI Softs Index",
+        "ticker": "SGSICP",
+        "exchange": "Bloomberg"
+    }
+}

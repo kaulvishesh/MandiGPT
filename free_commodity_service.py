@@ -8,7 +8,7 @@ from models import CommodityPrice, Location
 class FreeCommodityService:
     """Free commodity price service using public APIs and web scraping"""
     
-    def __init__(self):
+    def __init__(self, mock_prices_path="mock_prices.json"):
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -22,84 +22,16 @@ class FreeCommodityService:
         }
         
         # Fallback mock prices with realistic Indian market data
-        self.mock_prices = self._initialize_realistic_prices()
+        self.mock_prices = self._initialize_realistic_prices(mock_prices_path)
     
-    def _initialize_realistic_prices(self) -> Dict[str, Dict]:
-        """Initialize realistic commodity prices based on Indian market data"""
-        return {
-            "Rice": {
-                "current_price": 2500,
-                "trend": "increasing",
-                "markets": ["Delhi", "Mumbai", "Kolkata", "Chennai"],
-                "unit": "quintal"
-            },
-            "Wheat": {
-                "current_price": 2200,
-                "trend": "stable", 
-                "markets": ["Delhi", "Punjab", "Haryana", "UP"],
-                "unit": "quintal"
-            },
-            "Maize": {
-                "current_price": 1800,
-                "trend": "increasing",
-                "markets": ["Karnataka", "Andhra Pradesh", "Maharashtra"],
-                "unit": "quintal"
-            },
-            "Sugarcane": {
-                "current_price": 3200,
-                "trend": "stable",
-                "markets": ["UP", "Maharashtra", "Karnataka", "Tamil Nadu"],
-                "unit": "quintal"
-            },
-            "Cotton": {
-                "current_price": 6500,
-                "trend": "decreasing",
-                "markets": ["Gujarat", "Maharashtra", "Punjab", "Haryana"],
-                "unit": "quintal"
-            },
-            "Soybean": {
-                "current_price": 4200,
-                "trend": "increasing",
-                "markets": ["Madhya Pradesh", "Maharashtra", "Rajasthan"],
-                "unit": "quintal"
-            },
-            "Groundnut": {
-                "current_price": 5500,
-                "trend": "stable",
-                "markets": ["Gujarat", "Rajasthan", "Tamil Nadu"],
-                "unit": "quintal"
-            },
-            "Potato": {
-                "current_price": 1200,
-                "trend": "increasing",
-                "markets": ["UP", "West Bengal", "Punjab", "Bihar"],
-                "unit": "quintal"
-            },
-            "Onion": {
-                "current_price": 1800,
-                "trend": "decreasing",
-                "markets": ["Maharashtra", "Karnataka", "Gujarat"],
-                "unit": "quintal"
-            },
-            "Tomato": {
-                "current_price": 2500,
-                "trend": "increasing",
-                "markets": ["Karnataka", "Andhra Pradesh", "Maharashtra"],
-                "unit": "quintal"
-            },
-            "Turmeric": {
-                "current_price": 8500,
-                "trend": "stable",
-                "markets": ["Tamil Nadu", "Andhra Pradesh", "Maharashtra"],
-                "unit": "quintal"
-            },
-            "Red Chilli": {
-                "current_price": 15000,
-                "trend": "increasing",
-                "markets": ["Andhra Pradesh", "Karnataka", "Telangana"],
-                "unit": "quintal"
-            }
-        }
+    def _initialize_realistic_prices(self, mock_prices_path: str) -> Dict[str, Dict]:
+        """Initialize realistic commodity prices from a JSON file"""
+        try:
+            with open(mock_prices_path, 'r') as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Error loading mock prices: {e}")
+            return {}
     
     async def get_commodity_prices(self, location: Location, commodities: List[str] = None) -> List[CommodityPrice]:
         """Get commodity prices from free sources"""
